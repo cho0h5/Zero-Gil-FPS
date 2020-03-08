@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         SpawnPlayer();
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            LeftRoom();
+        }
+    }
+
     void SpawnPlayer()
     {
         Transform StartPosition_tr = StartPosition.GetComponent<Transform>();
@@ -26,5 +34,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //base.OnLeftRoom();
         SceneManager.LoadScene("EnterScene");
+    }
+
+    public void LeftRoom()
+    {
+        PhotonNetwork.LeaveRoom();
     }
 }
