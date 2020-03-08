@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    public GameObject player;
     public GameObject Bullet;
     public GameObject position;
     Transform position_tr;
@@ -11,18 +13,24 @@ public class GunController : MonoBehaviour
 
     bool canFire = true;
 
+    //photon
+    PlayerManager player_pm;
+
     // Start is called before the first frame update
     void Start()
     {
         position_tr = position.GetComponent<Transform>();
+        player_pm = player.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!player_pm.isMine) return;
+
         if (Input.GetMouseButton(0) && canFire)
         {
-            GameObject bullet = Instantiate(Bullet, position_tr.position, Quaternion.identity);
+            GameObject bullet = PhotonNetwork.Instantiate(Bullet.name, position_tr.position, Quaternion.identity);
             Rigidbody bullet_rd = bullet.GetComponent<Rigidbody>();
             bullet_rd.AddForce(PlayerManager.direction * BulletSpeed);
 

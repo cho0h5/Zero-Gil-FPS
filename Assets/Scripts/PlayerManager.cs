@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
     public int HP = 100;
 
@@ -15,16 +16,23 @@ public class PlayerManager : MonoBehaviour
     public GameObject NameTag;
     GameObject nameTag;
 
+    //photon
+    public bool isMine;
+
     void Start()
     {
+        isMine = photonView.IsMine;
+
         rigidbody = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
-        nameTag = Instantiate(NameTag, Vector3.zero, Quaternion.identity);
+        nameTag = PhotonNetwork.Instantiate(NameTag.name, Vector3.zero, Quaternion.identity);
         nameTag.GetComponent<NameTagController>().Target = gameObject;
     }
     
     void FixedUpdate()
     {
+        if (!photonView.IsMine) return;
+
         //player position
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveDirection = moveDirection.normalized;

@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviourPun
 {
     Transform tr;
     Transform Camera_tr;
+
+    //photon
+    
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +20,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!photonView.IsMine) return;
         Camera_tr.position = tr.position + new Vector3(0, 13, -2);
         Camera_tr.LookAt(tr);
     }

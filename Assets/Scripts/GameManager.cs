@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject StartPosition;
     public GameObject Player;
@@ -11,7 +13,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SpawnPlayer();
+    }
+
+    void SpawnPlayer()
+    {
         Transform StartPosition_tr = StartPosition.GetComponent<Transform>();
-        Instantiate(Player, StartPosition_tr.position, Quaternion.identity);
+        PhotonNetwork.Instantiate(Player.name, StartPosition_tr.position, Quaternion.identity);
+    }
+
+    public override void OnLeftRoom()
+    {
+        //base.OnLeftRoom();
+        SceneManager.LoadScene("EnterScene");
     }
 }

@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeaedd0d28220144a6f6a77e6095592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Blank
+  joinButton: {fileID: 127334019}
   inputField: {fileID: 1381113118}
 --- !u!4 &133772817
 Transform:
