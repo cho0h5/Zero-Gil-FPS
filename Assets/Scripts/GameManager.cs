@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject StartPosition;
     public GameObject Player;
 
+    public GameObject RespawnButton;
+
     // Start is called before the first frame update
     void Start()
     {
+        RespawnButton.SetActive(false);
         SpawnPlayer();
     }
 
@@ -43,6 +46,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void OnDie()
     {
+        RespawnButton.SetActive(true);
+    }
 
+    public void OnRespawn()
+    {
+        SpawnPlayer();
+        RespawnButton.SetActive(false);
     }
 }

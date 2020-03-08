@@ -20,7 +20,8 @@ public class PlayerManager : MonoBehaviourPun
     public bool isMine;
 
     //onDie
-    public GameObject gameManager;
+    GameObject gameManager;
+    GameManager gameManager_gm;
 
     void Start()
     {
@@ -30,11 +31,15 @@ public class PlayerManager : MonoBehaviourPun
         transform = GetComponent<Transform>();
         nameTag = PhotonNetwork.Instantiate(NameTag.name, Vector3.zero, Quaternion.identity);
         nameTag.GetComponent<NameTagController>().Target = gameObject;
+
+        gameManager = GameObject.Find("GameManager");
+        gameManager_gm = gameManager.GetComponent<GameManager>();
     }
     
     void FixedUpdate()
     {
         if (!photonView.IsMine) return;
+        if (HP <= 0) Die();
 
         //player position
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -57,19 +62,19 @@ public class PlayerManager : MonoBehaviourPun
 
         transform.rotation = Quaternion.LookRotation(direction);
 
-        if (HP <= 0) Die();
 
     }
 
     void OnCollisionEnter(Collision col)
     {
         //Debug.Log(col.collider.tag);
-        if (col.collider.tag == "DeadZone") Die();
+        if (col.collider.tag == "DeadZone") HP = 0;
     }
 
     public void Die()
     {
         PhotonNetwork.Destroy(nameTag);
         PhotonNetwork.Destroy(gameObject);
+        gameManager_gm.OnDie();
     }
 }
