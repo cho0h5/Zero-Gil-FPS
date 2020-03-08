@@ -40,4 +40,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
+
+    public void OnDie()
+    {
+
+    }
 }

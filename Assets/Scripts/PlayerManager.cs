@@ -19,6 +19,9 @@ public class PlayerManager : MonoBehaviourPun
     //photon
     public bool isMine;
 
+    //onDie
+    public GameObject gameManager;
+
     void Start()
     {
         isMine = photonView.IsMine;
@@ -66,7 +69,7 @@ public class PlayerManager : MonoBehaviourPun
 
     public void Die()
     {
-        Destroy(nameTag);
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(nameTag);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

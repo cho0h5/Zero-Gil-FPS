@@ -115,6 +115,7 @@ MonoBehaviour:
   speed: 200
   NameTag: {fileID: 2113281782031245849, guid: cea553d6af0ff524b830afd8d58f3c8f, type: 3}
   isMine: 0
+  gameManager: {fileID: 0}
 --- !u!54 &3368070828055100851
 Rigidbody:
   m_ObjectHideFlags: 0
