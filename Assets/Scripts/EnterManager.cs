@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class EnterManager : MonoBehaviourPunCallbacks
 {
-    public static string name;
+    public static string name = "Blank";
     public Button joinButton;
     public InputField inputField;
 
@@ -52,7 +52,8 @@ public class EnterManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         //base.OnJoinRandomFailed(returnCode, message);
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+        Debug.Log($"On join Random Failed {message}");
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 10 });
     }
 
     public override void OnJoinedRoom()

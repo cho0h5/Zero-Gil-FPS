@@ -31,6 +31,9 @@ public class PlayerManager : MonoBehaviourPun
     public GunController gunController;
     Vector3 preFire;
 
+    //syncNameTag
+    public int viewID;
+
     void Start()
     {
         isMine = photonView.IsMine;
@@ -48,8 +51,12 @@ public class PlayerManager : MonoBehaviourPun
         JoystickFire = GameObject.Find("JoystickFire/Background").GetComponent<JoystickController>();
 
         preFire = Vector3.zero;
+
+
+        //syncNameTag
+        viewID = photonView.ViewID;
     }
-    
+
     void FixedUpdate()
     {
         if (!photonView.IsMine) return;
@@ -104,5 +111,11 @@ public class PlayerManager : MonoBehaviourPun
         PhotonNetwork.Destroy(nameTag);
         PhotonNetwork.Destroy(gameObject);
         gameManager_gm.OnDie();
+    }
+
+    [PunRPC]
+    public void RPCUpdateHP(int targetID, int targetHP)
+    {
+        Debug.Log(targetID.ToString() + " : " + targetHP.ToString());
     }
 }

@@ -1424,6 +1424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stick: {fileID: 1950220203}
   JoystickDirection: {x: 0, y: 0, z: 0}
+  mouseDown: 0
 --- !u!114 &714357671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2592,6 +2593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stick: {fileID: 606958209}
   JoystickDirection: {x: 0, y: 0, z: 0}
+  mouseDown: 0
 --- !u!114 &1809210180
 MonoBehaviour:
   m_ObjectHideFlags: 0

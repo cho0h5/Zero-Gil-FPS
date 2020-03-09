@@ -118,6 +118,7 @@ MonoBehaviour:
   JoystickMove: {fileID: 0}
   JoystickFire: {fileID: 0}
   gunController: {fileID: 3368070828485903451}
+  viewID: 0
 --- !u!54 &3368070828055100851
 Rigidbody:
   m_ObjectHideFlags: 0

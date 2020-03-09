@@ -21,8 +21,9 @@ public class NameTagController : MonoBehaviour
     void LateUpdate()
     {
         Vector3 Screen_ps = Camera.main.WorldToScreenPoint(Target_tr.position);
-        tr.position = new Vector3(Screen_ps.x, Screen_ps.y+80, tr.position.z);
+        tr.position = new Vector3(Screen_ps.x, Screen_ps.y+100, tr.position.z);
         int HP = Target.GetComponent<PlayerManager>().HP;
         txt.text = EnterManager.name + " : " + HP.ToString();
     }
+
 }
