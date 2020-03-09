@@ -23,6 +23,14 @@ public class PlayerManager : MonoBehaviourPun
     GameObject gameManager;
     GameManager gameManager_gm;
 
+    //control
+    public JoystickController JoystickMove;
+    public JoystickController JoystickFire;
+    Vector3 Move;
+    Vector3 Fire;
+    public GunController gunController;
+    Vector3 preFire;
+
     void Start()
     {
         isMine = photonView.IsMine;
@@ -34,6 +42,12 @@ public class PlayerManager : MonoBehaviourPun
 
         gameManager = GameObject.Find("GameManager");
         gameManager_gm = gameManager.GetComponent<GameManager>();
+
+        //joystick initialize
+        JoystickMove = GameObject.Find("JoystickMove/Background").GetComponent<JoystickController>();
+        JoystickFire = GameObject.Find("JoystickFire/Background").GetComponent<JoystickController>();
+
+        preFire = Vector3.zero;
     }
     
     void FixedUpdate()
@@ -41,6 +55,7 @@ public class PlayerManager : MonoBehaviourPun
         if (!photonView.IsMine) return;
         if (HP <= 0) Die();
 
+        /*
         //player position
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveDirection = moveDirection.normalized;
@@ -61,7 +76,20 @@ public class PlayerManager : MonoBehaviourPun
         //Debug.Log($"direction : {direction}");
 
         transform.rotation = Quaternion.LookRotation(direction);
+        //*/
 
+        //move
+        Move = JoystickMove.JoystickDirection;
+        moveDirection = new Vector3(Move.x, 0, Move.y);
+        moveDirection = moveDirection.normalized;
+        rigidbody.AddForce(moveDirection * speed);
+
+        //fire
+        Fire = JoystickFire.JoystickDirection;
+        if (Fire != Vector3.zero) preFire = Fire;
+        gunController.mouseDown = JoystickFire.mouseDown;
+        direction = new Vector3(preFire.x, 0, preFire.y);
+        transform.rotation = Quaternion.LookRotation(direction);
 
     }
 

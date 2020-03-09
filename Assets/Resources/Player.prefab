@@ -115,6 +115,9 @@ MonoBehaviour:
   speed: 200
   NameTag: {fileID: 2113281782031245849, guid: cea553d6af0ff524b830afd8d58f3c8f, type: 3}
   isMine: 0
+  JoystickMove: {fileID: 0}
+  JoystickFire: {fileID: 0}
+  gunController: {fileID: 3368070828485903451}
 --- !u!54 &3368070828055100851
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,6 +295,7 @@ MonoBehaviour:
   Bullet: {fileID: 7557071061285198441, guid: e8f2009eb1d938d4393536572c81668a, type: 3}
   position: {fileID: 3368070828618334112}
   BulletSpeed: 15
+  mouseDown: 0
 --- !u!1 &3368070828618334112
 GameObject:
   m_ObjectHideFlags: 0

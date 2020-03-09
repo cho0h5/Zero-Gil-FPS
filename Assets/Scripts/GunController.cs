@@ -13,6 +13,8 @@ public class GunController : MonoBehaviour
 
     bool canFire = true;
 
+    public bool mouseDown = false;
+
     //photon
     PlayerManager player_pm;
 
@@ -28,7 +30,7 @@ public class GunController : MonoBehaviour
     {
         if (!player_pm.isMine) return;
 
-        if (Input.GetMouseButton(0) && canFire)
+        if (mouseDown && canFire)
         {
             GameObject bullet = PhotonNetwork.Instantiate(Bullet.name, position_tr.position, Quaternion.identity);
             Rigidbody bullet_rd = bullet.GetComponent<Rigidbody>();
