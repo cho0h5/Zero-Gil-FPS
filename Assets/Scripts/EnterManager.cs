@@ -15,38 +15,37 @@ public class EnterManager : MonoBehaviourPunCallbacks
     //photon
     readonly string gameVersion = "1";
 
-    void Start()
-    {
-        joinButton.interactable = false;
-
-        PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-
     public override void OnConnectedToMaster()
     {
         //base.OnConnectedToMaster();
-        joinButton.interactable = true;
+        //joinButton.interactable = true;
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            joinButton.interactable = true;
+            return;
+        }
+
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         //base.OnDisconnected(cause);
-        PhotonNetwork.ConnectUsingSettings();
+        
+        //PhotonNetwork.ConnectUsingSettings();
     }
 
     public void OnClickEnter()
     {
+
         joinButton.interactable = false;
+        name = inputField.text;
 
-        if (!PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.ConnectUsingSettings();
-            return;
-        }
+        PhotonNetwork.GameVersion = gameVersion;
+        PhotonNetwork.NickName = name;
+        PhotonNetwork.ConnectUsingSettings();
 
-        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

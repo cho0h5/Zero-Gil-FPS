@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviourPun
 
     //syncNameTag
     public int viewID;
+    public string name;
 
     void Start()
     {
@@ -55,6 +56,7 @@ public class PlayerManager : MonoBehaviourPun
 
         //syncNameTag
         viewID = photonView.ViewID;
+        name = photonView.Owner.NickName;
     }
 
     void FixedUpdate()

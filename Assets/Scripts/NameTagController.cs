@@ -9,6 +9,7 @@ public class NameTagController : MonoBehaviour
     Transform Target_tr;
     Transform tr;
     Text txt;
+    PlayerManager Target_pm;
 
     void Start()
     {
@@ -22,8 +23,8 @@ public class NameTagController : MonoBehaviour
     {
         Vector3 Screen_ps = Camera.main.WorldToScreenPoint(Target_tr.position);
         tr.position = new Vector3(Screen_ps.x, Screen_ps.y+100, tr.position.z);
-        int HP = Target.GetComponent<PlayerManager>().HP;
-        txt.text = EnterManager.name + " : " + HP.ToString();
+        Target_pm = Target.GetComponent<PlayerManager>();
+        txt.text = Target_pm.name + " : " + Target_pm.HP.ToString();
     }
 
 }
