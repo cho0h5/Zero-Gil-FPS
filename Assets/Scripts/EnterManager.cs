@@ -15,6 +15,7 @@ public class EnterManager : MonoBehaviourPunCallbacks
     //photon
     readonly string gameVersion = "1";
 
+
     public override void OnConnectedToMaster()
     {
         //base.OnConnectedToMaster();
@@ -26,7 +27,10 @@ public class EnterManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        PhotonNetwork.JoinRandomRoom();
+        if(joinButton.interactable == false)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)

@@ -110,14 +110,22 @@ public class PlayerManager : MonoBehaviourPun
 
     public void Die()
     {
+        gameManager_gm.OnDie();
         PhotonNetwork.Destroy(nameTag);
         PhotonNetwork.Destroy(gameObject);
-        gameManager_gm.OnDie();
+    }
+
+    public void OnDamage(int Damage)
+    {
+        photonView.RPC("RPCUpdateHP", RpcTarget.All, photonView.Owner.ActorNumber, Damage);
     }
 
     [PunRPC]
-    public void RPCUpdateHP(int targetID, int targetHP)
+    public void RPCUpdateHP(int ActorNumber, int Damage)
     {
-        Debug.Log(targetID.ToString() + " : " + targetHP.ToString());
+        if (photonView.Owner.ActorNumber == ActorNumber)
+        {
+            HP -= Damage;
+        }
     }
 }

@@ -14,22 +14,18 @@ public class BulletController : MonoBehaviourPun
 
     void OnCollisionEnter(Collision col)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!photonView.IsMine) return;
 
         string col_tag = col.collider.tag;
         //Debug.Log($"OnTriggerEnter : {col_tag}");
 
-        if (col_tag == "Ballet" || col_tag == "Gun" || col_tag == "Wall") return;
-
         if(col_tag == "Player")
         {
-            col.gameObject.GetComponent<PlayerManager>().HP -= Damage;
+            col.gameObject.GetComponent<PlayerManager>().OnDamage(Damage);
+            PhotonNetwork.Destroy(gameObject);
         }
 
-        int targetHP = col.gameObject.GetComponent<PlayerManager>().HP;
-        int targetID = col.gameObject.GetComponent<PhotonView>().ViewID;
-        photonView.RPC("RPCUpdateHP", RpcTarget.All, targetID, targetHP);
-        PhotonNetwork.Destroy(gameObject);
     }
 
     IEnumerator DestroyBullet()
@@ -37,15 +33,4 @@ public class BulletController : MonoBehaviourPun
         yield return new WaitForSeconds(1f);
         PhotonNetwork.Destroy(gameObject);
     }
-
-    /*
-    [PunRPC]
-    public void RPCUpdateHP(int targetID, int targetHP)
-    {
-        if (targetID == Target_pm.viewID)
-        {
-            HP = targetHP;
-        }
-    }
-    */
 }
